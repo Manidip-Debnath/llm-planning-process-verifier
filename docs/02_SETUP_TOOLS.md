@@ -58,7 +58,7 @@ mkdir build && cd build
 cmake .. && make -j4
 ```
 
-The `Validate` binary ends up under the build directory (check `build/` or `build/bin/`). Test:
+The `Validate` binary ends up at `~/VAL/build/bin/Validate`. Test:
 
 ```bash
 Validate -v domain.pddl problem.pddl plan.txt
@@ -76,6 +76,32 @@ Plan file format, one action per line in parentheses:
 Try a correct plan and a deliberately broken one. VAL's output names the first failing step.
 
 If the build fails, note the error message; version differences are common. Fallback: your own Python STRIPS simulator (Phase 3.2) can validate plans for Blocksworld, and you can note the VAL limitation in the report.
+
+## 4b. Tell the project scripts where the tools are
+
+Add these to `~/.bashrc` (then run `source ~/.bashrc`):
+
+```bash
+export FD_PATH=$HOME/fast-downward/fast-downward.py
+export VAL_PATH=$HOME/VAL/build/bin/Validate
+```
+
+## 4c. Smoke test with the project scripts
+
+From the repo folder:
+
+```bash
+python3 data/gen_blocksworld.py --sizes 3 4 5 --count 5 --seed 0 --out data/blocksworld/problems
+python3 data/solve_optimal.py --domain data/domains/blocksworld/domain.pddl \
+    --problems data/blocksworld/problems --out data/blocksworld/solutions.jsonl
+```
+
+You should see `15/15 done`. Each line of `solutions.jsonl` holds the optimal plan and its cost. To check a plan with VAL:
+
+```bash
+python3 data/validate_plan.py --domain data/domains/blocksworld/domain.pddl \
+    --problem data/blocksworld/problems/b4_0000.pddl --plan my_plan.txt
+```
 
 ## 5. PDDL generators (optional)
 

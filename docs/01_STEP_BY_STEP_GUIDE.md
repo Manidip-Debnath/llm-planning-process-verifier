@@ -46,7 +46,7 @@ git push -u origin main
 
 ### 1.3 Blocksworld problems
 
-- [ ] Write a small Python generator `data/gen_blocksworld.py` that makes random problems (start and goal stacks) for N = 3..8 blocks and writes PDDL files. (Writing your own is quicker and less error-prone than compiling external generators; cite `pddl-generators` if you use it.)
+- [ ] **Blocksworld generator:** `data/gen_blocksworld.py` makes random problems (start and goal towers) for any block count and writes PDDL files, plus `data/solve_optimal.py` (Fast Downward wrapper) and `data/validate_plan.py` (VAL wrapper). These are already written and tested; run them as in `02_SETUP_TOOLS.md` section 4c and read the code so you can explain it. Add your own sizes (3-8 blocks) and cite `pddl-generators` only if you use it.
 - [ ] Save the domain file `data/domains/blocksworld/domain.pddl` (standard 4-operator version: pick-up, put-down, stack, unstack).
 - [ ] Solve every problem optimally with Fast Downward and save `plan` and `cost` to `data/blocksworld/<id>.json`.
 - [ ] Generate ~1,000 problems with sizes 3-8. Keep a seed in the script so the data is reproducible.
