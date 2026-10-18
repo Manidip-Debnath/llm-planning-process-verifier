@@ -3,7 +3,8 @@
 **Learning step-level verifiers from solver labels, and using them to guide LLM planners**
 
 CSI-4130/5130 Artificial Intelligence, Course Project (solo)
-Author: Manidip Debnath (manidipdeb@oakland.edu)
+
+**Author:** Manidip Debnath (manidipdeb@oakland.edu)
 
 > Status: initial proposal (October 2026). This README will be updated with results, run instructions, and the video link before the final submission.
 
