@@ -1,0 +1,37 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+.ipynb_checkpoints/
+
+# Secrets
+.env
+*.key
+
+# Large data and outputs (keep small samples only)
+data/runs/
+data/labeled/
+data/raw/
+*.jsonl.gz
+outputs/
+checkpoints/
+wandb/
+
+# Model weights
+*.pt
+*.pth
+*.safetensors
+*.bin
+*.gguf
+
+# Planner artifacts
+sas_plan
+output.sas
+*.log
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

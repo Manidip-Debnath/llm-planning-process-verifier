@@ -1,0 +1,22 @@
+# Core
+numpy
+pandas
+scikit-learn
+matplotlib
+tqdm
+
+# LLM stack
+torch
+transformers
+datasets
+accelerate
+peft
+trl
+bitsandbytes
+
+# Optional (faster fine-tuning on Colab/Kaggle)
+# unsloth
+
+# Planning helpers (optional)
+# pddl
+# unified-planning
