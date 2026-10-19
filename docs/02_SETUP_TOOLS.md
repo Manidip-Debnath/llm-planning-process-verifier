@@ -55,7 +55,15 @@ cd ~
 git clone https://github.com/KCL-Planning/VAL.git
 cd VAL
 mkdir build && cd build
-cmake .. && make -j4
+cmake .. -DCMAKE_POLICY_VERSION_MINIMUM=3.5 && make -j4
+```
+
+The `-DCMAKE_POLICY_VERSION_MINIMUM=3.5` flag is needed on newer Ubuntu releases (cmake 4.x), because VAL's build files ask for cmake 2.8. If `make` stops with a compiler error, retry with:
+
+```bash
+cd ~/VAL && rm -rf build && mkdir build && cd build
+cmake .. -DCMAKE_POLICY_VERSION_MINIMUM=3.5 -DCMAKE_CXX_FLAGS="-std=gnu++14 -fpermissive -w"
+make -j4
 ```
 
 The `Validate` binary ends up at `~/VAL/build/bin/Validate`. Test:

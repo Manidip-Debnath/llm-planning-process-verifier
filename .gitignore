@@ -13,6 +13,7 @@ venv/
 data/runs/
 data/labeled/
 data/raw/
+data/blocksworld/
 *.jsonl.gz
 outputs/
 checkpoints/
