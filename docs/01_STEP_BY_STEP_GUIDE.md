@@ -48,7 +48,7 @@ git push -u origin main
 
 - [ ] **Blocksworld generator:** `data/gen_blocksworld.py` makes random problems (start and goal towers) for any block count and writes PDDL files, plus `data/solve_optimal.py` (Fast Downward wrapper) and `data/validate_plan.py` (VAL wrapper). These are already written and tested; run them as in `02_SETUP_TOOLS.md` section 4c and read the code so you can explain it. Add your own sizes (3-8 blocks) and cite `pddl-generators` only if you use it.
 - [ ] Save the domain file `data/domains/blocksworld/domain.pddl` (standard 4-operator version: pick-up, put-down, stack, unstack).
-- [ ] Solve every problem optimally with Fast Downward and save `plan` and `cost` to `data/blocksworld/<id>.json`.
+- [ ] Solve every problem optimally with Fast Downward and save `plan` and `cost` (one JSON line per problem in `data/blocksworld/solutions.jsonl`, done by `solve_optimal.py`).
 - [ ] Generate ~1,000 problems with sizes 3-8. Keep a seed in the script so the data is reproducible.
 
 **Checkpoint 1 (by Oct 26):** repo is public and linked on Moodle; solver, VAL, and the generator all work on Blocksworld.
@@ -57,7 +57,7 @@ git push -u origin main
 
 ## Phase 2: Planner baselines (Oct 26 - Nov 1)
 
-Code goes in `planners/`.
+Code goes in `planners/`. **Already written and tested; follow `docs/06_PHASE2_RUN_GUIDE.md`.** The steps below describe what the code does.
 
 - [ ] **Prompt:** domain rules (natural language or PDDL), the problem, required output format (one action per line, e.g. `(unstack a b)`), plus 1-2 few-shot examples.
 - [ ] **Parser:** extract actions from the output. Anything malformed counts as invalid.

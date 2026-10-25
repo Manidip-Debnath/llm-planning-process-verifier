@@ -16,6 +16,7 @@ LLMs write plans that look right but break a rule partway through. A classical p
 | `docs/02_SETUP_TOOLS.md` | Installing Python, Fast Downward, VAL, and running on Colab/Kaggle |
 | `docs/03_CONCEPTS_GLOSSARY.md` | PDDL, VAL, PRM, GRPO and other terms, explained simply |
 | `docs/04_PROGRESS_TRACKER.md` | Checklist and weekly log (update it every few days) |
+| `docs/06_PHASE2_RUN_GUIDE.md` | **Current stage:** how to run the planner baselines (PC + Colab) |
 | `docs/05_REPORT_AND_PRESENTATION.md` | Report outline, presentation plan, demo and video checklist |
 | `data/ planners/ verifier/ search/ eval/ notebooks/ report/` | Empty code folders, filled as you go |
 | `requirements.txt`, `.gitignore` | Python packages and files Git should ignore |
