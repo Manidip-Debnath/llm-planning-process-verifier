@@ -92,3 +92,9 @@ A table of greedy vs. self-consistency validity at N = 1..32, with tokens per pr
 - Qwen2.5 models: the 0.5B, 1.5B and 7B are Apache-2.0; the 3B uses Qwen's own research license (fine for coursework). Verify each license on the model's Hugging Face page and list it in the README.
 - "Equal compute" is counted in generated tokens. The runner stores `tokens` for every sample.
 - Prompts matter. If you change `planners/prompts.py`, rerun everything so all methods share one prompt.
+
+## Result and what we changed (Oct 25)
+
+- With the plain prompt, Qwen2.5-3B was valid on about 2.7% of samples and Qwen2.5-7B (4-bit) on about 6% overall, almost always failing with "precondition not met" (the model loses track of the blocks).
+- The notebook now defaults to Qwen2.5-7B with `STYLE = "state"` (`--style state`): the model writes the towers after each action, then the plan. Results: `results/baselines_Qwen2.5-7B-Instruct_state.md`.
+- Use 3 and 4 blocks for the verifier work. 5 blocks is almost never solved.

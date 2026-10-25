@@ -6,12 +6,12 @@ Update this every few days. It also helps you write the report and keeps the com
 
 | # | Milestone | Target date | Done |
 |---|---|---|---|
-| 1 | Public repo created, README pushed | Oct 20 | [ ] |
+| 1 | Public repo created, README pushed | Oct 20 | [x] |
 | 2 | Repo link submitted on Moodle | Oct 24 (deadline Oct 27) | [ ] |
-| 3 | Fast Downward + VAL working | Oct 24 | [ ] |
-| 4 | Blocksworld generator + optimal solutions | Oct 26 | [ ] |
-| 5 | Greedy + self-consistency baselines (validity 20-50%) | Nov 1 | [ ] |
-| 6 | STRIPS simulator cross-checked with VAL | Nov 5 | [ ] |
+| 3 | Fast Downward + VAL working | Oct 24 | [x] |
+| 4 | Blocksworld generator + optimal solutions | Oct 26 | [x] |
+| 5 | Greedy + self-consistency baselines (validity 20-50%) | Nov 1 | [x] |
+| 6 | STRIPS simulator cross-checked with VAL | Nov 5 | [x] |
 | 7 | Labeled prefix dataset + data card | Nov 8 | [ ] |
 | 8 | Verifier trained, beats untrained judge | Nov 13 | [ ] |
 | 9 | **Go/no-go on RL** | Nov 13 | [ ] |
@@ -28,16 +28,16 @@ Update this every few days. It also helps you write the report and keeps the com
 
 | Quantity | Value |
 |---|---|
-| Problem sizes used (blocks) | |
+| Problem sizes used (blocks) | 3 and 4 (5 only as a hard set) |
 | # train / val / test problems | |
-| Greedy validity | |
-| Self-consistency validity (N=4 / 8 / 16 / 32) | |
+| Greedy validity | 6.7% overall (3 blocks 15%, 4 blocks 5%, 5 blocks 0%) |
+| Self-consistency validity (N=4 / 8 / 16 / 32) | 6.7% / 8.3% / 11.7% / (not run); oracle best-of-16 28.3% |
 | Untrained-judge best-of-N validity | |
 | Verifier best-of-N validity | |
 | Verifier beam-search validity | |
 | Verifier AUROC (held-out) | |
 | OOD validity (larger / new domain) | |
-| Tokens per method at best setting | |
+| Tokens per method at best setting | greedy 209; self-consistency N=16 3,343 |
 
 ## Weekly log
 
