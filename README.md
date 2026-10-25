@@ -3,8 +3,7 @@
 **Learning step-level verifiers from solver labels, and using them to guide LLM planners**
 
 CSI-4130/5130 Artificial Intelligence, Course Project (solo)
-
-**Author:** Manidip Debnath (manidipdeb@oakland.edu)
+Author: Manidip Debnath (manidipdeb@oakland.edu)
 
 > Status: initial proposal (October 2026). This README will be updated with results, run instructions, and the video link before the final submission.
 
@@ -85,6 +84,18 @@ eval/        metrics and plotting
 notebooks/   Colab entry points
 report/      final report (PDF)
 ```
+
+## Results So Far (Phase 2: planner baselines)
+
+Planner: Qwen2.5-7B-Instruct (4-bit), 60 Blocksworld problems (3, 4 and 5 blocks), 16 samples per problem, every plan checked with the Python STRIPS simulator (validated against VAL). The prompt asks the model to write the towers after each action ("state" style) before giving the final plan.
+
+| Method | Validity | Tokens / problem |
+|---|---|---|
+| Greedy | 6.7% | 209 |
+| Self-consistency, N=16 | 11.7% | 3,343 |
+| Oracle best-of-16 (ceiling for any verifier) | 28.3% | 3,343 |
+
+By size, oracle best-of-16 reaches 60% on 3-block problems while the average single sample is valid 20.9% of the time, so a verifier has room to help. 5-block problems are almost never solved. Full tables are in `results/`.
 
 ## How to Run
 
