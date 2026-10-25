@@ -49,7 +49,73 @@ def problem_text(problem):
     return describe(problem.init, goal, problem.objects)
 
 
-def build_messages(problem, few_shot=True):
+def towers(facts, objects):
+    """Render a state as towers, bottom to top, e.g. '[b1 b2] [b3]'."""
+    on = {f[1]: f[2] for f in facts if f[0] == "on"}          # top -> below
+    held = [f[1] for f in facts if f[0] == "holding"]
+    below = set(on.values())
+    tops = [b for b in sorted(objects) if b not in below and b not in held]
+    out = []
+    for top in tops:
+        chain, cur = [top], top
+        while cur in on:
+            cur = on[cur]
+            chain.append(cur)
+        out.append("[" + " ".join(reversed(chain)) + "]")
+    s = " ".join(out) if out else "(no towers)"
+    return s + ("; holding " + held[0] if held else "; hand empty")
+
+
+STATE_SYSTEM = SYSTEM_PROMPT.replace(
+    'Find a short plan that reaches the goal. Write the word "Plan:" and then one action per line, with parentheses, and nothing after the plan.',
+    "Work step by step. First write \"Start:\" with the towers you see. Then, for each action, write the action and "
+    "the towers after it, checking that its requirements hold in the current state. When the goal is reached write "
+    "\"Goal reached.\" Then write the word \"Plan:\" and the actions, one per line, with parentheses, and nothing after the plan.\n"
+    "A tower is written bottom to top, so [b1 b2] means b2 is on b1 and b1 is on the table.")
+
+_EXAMPLE_STATE_ANSWER = """Start: [b1 b2] [b3]; hand empty
+1. (unstack b2 b1) -> [b1] [b3]; holding b2
+2. (stack b2 b3) -> [b1] [b3 b2]; hand empty
+3. (pick-up b1) -> [b3 b2]; holding b1
+4. (stack b1 b2) -> [b3 b2 b1]; hand empty
+Goal reached.
+Plan:
+""" + "\n".join(_EXAMPLE_PLAN)
+
+
+def _describe_towers(init, goal, objects):
+    return (describe(init, goal, objects) +
+            "\nStart towers: " + towers(init, objects) +
+            "\nGoal towers: " + towers_goal(goal, objects))
+
+
+def towers_goal(goal, objects):
+    on = {f[1]: f[2] for f in goal if f[0] == "on"}
+    below = set(on.values())
+    tops = [b for b in sorted(objects) if b not in below and b in on or (b not in below and b not in on)]
+    parts = []
+    for top in tops:
+        chain, cur = [top], top
+        while cur in on:
+            cur = on[cur]
+            chain.append(cur)
+        if len(chain) > 1:
+            parts.append("[" + " ".join(reversed(chain)) + "]")
+    return (" ".join(parts) + " (other blocks as in the goal facts)") if parts else "(just the facts above)"
+
+
+def build_messages(problem, few_shot=True, style="plain"):
+    """style='plain': answer is just the plan. style='state': write the towers after each action."""
+    if style == "state":
+        msgs = [{"role": "system", "content": STATE_SYSTEM}]
+        if few_shot:
+            msgs.append({"role": "user", "content": _describe_towers(
+                _EXAMPLE_INIT, _EXAMPLE_GOAL, ["b1", "b2", "b3"])})
+            msgs.append({"role": "assistant", "content": _EXAMPLE_STATE_ANSWER})
+        goal = [(pred, *args) for neg, pred, args in problem.goal if not neg]
+        msgs.append({"role": "user", "content": _describe_towers(
+            problem.init, goal, problem.objects)})
+        return msgs
     msgs = [{"role": "system", "content": SYSTEM_PROMPT}]
     if few_shot:
         msgs.append({"role": "user", "content": describe(

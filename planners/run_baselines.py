@@ -55,6 +55,8 @@ def main():
     ap.add_argument("--n-samples", type=int, default=32)
     ap.add_argument("--temperature", type=float, default=0.8)
     ap.add_argument("--max-new-tokens", type=int, default=300)
+    ap.add_argument("--style", choices=["plain", "state"], default="plain",
+                    help="plain = answer is the plan; state = write the towers after each action first")
     ap.add_argument("--chunk", type=int, default=16, help="samples generated per batch")
     ap.add_argument("--no-few-shot", action="store_true")
     ap.add_argument("--load-4bit", action="store_true")
@@ -96,7 +98,7 @@ def main():
             if pid in done:
                 continue
             problem = load_problem(pf)
-            msgs = build_messages(problem, few_shot=not args.no_few_shot)
+            msgs = build_messages(problem, few_shot=not args.no_few_shot, style=args.style)
             meta = {"id": pid}
             g, plen = backend.generate(msgs, 1, 0.0, args.max_new_tokens, meta)
             s, _ = backend.generate(msgs, args.n_samples, args.temperature,
